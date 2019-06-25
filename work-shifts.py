@@ -135,7 +135,9 @@ SHIFTS_IN_LONG_DAY = {
 def print_weight_of_each_group(assigned_shifts):
     """
     Debug function. Prints the total weight of the shifts assigned to each
-    group
+    group.
+
+    assigned_shifts: {group: {Shift: number_of_shifts_of_this_type}}
     """
     print('Weight of each group:')
     for group in assigned_shifts.keys():
@@ -147,7 +149,9 @@ def print_weight_of_each_group(assigned_shifts):
 
 def print_shifts_of_each_group(assigned_shifts):
     """
-    Debug function. Prints the shifts assigned to each group
+    Debug function. Prints the shifts assigned to each group.
+
+    assigned_shifts: {group: {Shift: number_of_shifts_of_this_type}}
     """
     for group in assigned_shifts.keys():
        weight = 0
@@ -168,7 +172,9 @@ def print_shifts_of_each_group(assigned_shifts):
 
 def print_weight_of_each_group_per_day(assigned_shifts_per_day):
     """
-    Debug function. Prints the weight of each group per day
+    Debug function. Prints the weight of each group per day.
+
+    assigned_shifts_per_day: {date: list(Assigned_Shift)}
     """
     for day in sorted(assigned_shifts_per_day.keys()):
         assigned_shifts = assigned_shifts_per_day[day]
@@ -178,12 +184,16 @@ def print_weight_of_each_group_per_day(assigned_shifts_per_day):
 
         print('Day %s:' % day)
         for group in range(1, NUMBER_OF_GROUPS + 1):
-            print('\tGroup %d: %.2f' % (group, sum((s.shift.weight for s in assigned_shifts if s.group == group))))
+            print('\tGroup %d: %.2f'
+                  % (group,
+                     sum((s.shift.weight
+                          for s in assigned_shifts if s.group == group))))
         print('------------------------')
 
 
 def main():
     # Initialise the list of assigned shifts
+    # {group: {Shift: number_of_shifts_of_this_type}}
     assigned_shifts = {}
     for i in range(0, NUMBER_OF_GROUPS):
         assigned_shifts[i+1] = dict()
@@ -203,6 +213,7 @@ def main():
     # First of all, assign shifts equally (number_of_shifts / NUMBER_OF_GROUPS
     # to each group). Store the remaining shifts (number_of_shits %
     # NUMBER_OF_GROUPS) in this variable.
+    # list(Shift)
     remaining_shifts = []
     for shift, number in all_shifts.items():
         if number % NUMBER_OF_GROUPS != 0:
@@ -309,7 +320,10 @@ def main():
 
         print('Day %s:' % day)
         for assigned_shift in sorted_assigned_shifts:
-            print('\t\t%s - %s: Group %d' % (assigned_shift.shift.time, assigned_shift.shift.role, assigned_shift.group))
+            print('\t%s - %s: Group %d'
+                  % (assigned_shift.shift.time,
+                     assigned_shift.shift.role,
+                     assigned_shift.group))
         print('------------------------')
 
 
