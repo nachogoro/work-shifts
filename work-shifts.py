@@ -166,6 +166,22 @@ def print_shifts_of_each_group(assigned_shifts):
        print('-------------------')
 
 
+def print_weight_of_each_group_per_day(assigned_shifts_per_day):
+    """
+    Debug function. Prints the weight of each group per day
+    """
+    for day in sorted(assigned_shifts_per_day.keys()):
+        assigned_shifts = assigned_shifts_per_day[day]
+        sorted_assigned_shifts = sorted(
+            assigned_shifts,
+            key=lambda s: (s.shift.time, s.shift.role, s.group))
+
+        print('Day %s:' % day)
+        for group in range(1, NUMBER_OF_GROUPS + 1):
+            print('\tGroup %d: %.2f' % (group, sum((s.shift.weight for s in assigned_shifts if s.group == group))))
+        print('------------------------')
+
+
 def main():
     # Initialise the list of assigned shifts
     assigned_shifts = {}
