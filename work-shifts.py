@@ -239,9 +239,9 @@ def main():
     # If we try to optimize each group individually, the groups that come last
     # will have less options and will be grossly overworked and underworked in
     # different days.
-    for i, day in enumerate(assigned_shifts_per_day.keys()):
+    for i, day in enumerate(sorted(assigned_shifts_per_day.keys())):
         # Assume that the first NUMBER_OF_LONG_DAYS are the long days
-        is_long_day = (i >= NUMBER_OF_LONG_DAYS)
+        is_long_day = (i < NUMBER_OF_LONG_DAYS)
         shifts_to_cover = (SHIFTS_IN_LONG_DAY if is_long_day
                            else SHIFTS_IN_NORMAL_DAY)
 
