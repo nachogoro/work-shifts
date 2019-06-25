@@ -285,7 +285,8 @@ def main():
                 assigned_shifts[min_group][shift] -= 1
 
     # Print the results
-    for day, assigned_shifts in assigned_shifts_per_day.items():
+    for day in sorted(assigned_shifts_per_day.keys()):
+        assigned_shifts = assigned_shifts_per_day[day]
         sorted_assigned_shifts = sorted(
             assigned_shifts,
             key=lambda s: (s.shift.time, s.shift.role, s.group))
